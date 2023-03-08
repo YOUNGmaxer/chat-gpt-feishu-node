@@ -157,7 +157,7 @@ async function getOpenAIReply(prompt) {
     
   }catch(e){
      logger(e.response.data)
-     return "问题太难了 出错了. (uДu〃).";
+     return `接口异常：${e.response.data.message}`;
   }
 
 }
