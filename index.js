@@ -157,7 +157,7 @@ async function getOpenAIReply(prompt) {
     
   }catch(e){
      logger(e.response.data)
-     return `接口异常：${e.response.data.message}`;
+     return `接口异常：${e.response.data.error.message}`;
   }
 
 }
