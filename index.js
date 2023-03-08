@@ -50,7 +50,6 @@ async function buildConversation(sessionId, question) {
   // 从 MsgTable 表中取出历史记录构造 question
   const historyMsgs = MsgTable.get(sessionId) || [];
   for (const conversation of historyMsgs) {
-      // {"role": "system", "content": "You are a helpful assistant."},
       prompt.push({"role": "user", "content": conversation.question})
       prompt.push({"role": "assistant", "content": conversation.answer})
   }
@@ -77,7 +76,7 @@ function saveConversation(sessionId, question, answer) {
 function discardConversation(sessionId) {
   let totalSize = 0;
   const historyMsgs = MsgTable.get(sessionId) || []
-  logger(`historyMsgs: ${JSON.stringify(historyMsgs)}`)
+  // logger(`historyMsgs: ${JSON.stringify(historyMsgs)}`)
   const historyMsgLen = historyMsgs.length;
   for (let i = historyMsgLen - 1; i >= 0; i--) {
     totalSize += historyMsgs[i].msgSize;
@@ -317,6 +316,7 @@ module.exports = async function (params, context) {
       }
       // 是文本消息，直接回复
       const userInput = JSON.parse(params.event.message.content);
+      logger(`sender: ${senderId}`)
       return await handleReply(userInput, sessionId, messageId, eventId);
     }
 
