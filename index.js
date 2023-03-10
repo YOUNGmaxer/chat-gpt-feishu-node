@@ -299,8 +299,8 @@ module.exports = async function (params, context) {
     // 对于同一个事件，只处理一次
     const eventObj = EventDB.get(eventId) || { count: 0 };
     const count = eventObj.count;
+    // skip repeat event
     if (count != 0) {
-      logger("skip repeat event");
       return { code: 1 };
     }
     EventDB.set(eventId, { event_id: eventId, count: 1 });
