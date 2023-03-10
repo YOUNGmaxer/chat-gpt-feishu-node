@@ -286,7 +286,6 @@ module.exports = async function (params, context) {
   }
   // 自检查逻辑
   if (!params.hasOwnProperty("header") || context.trigger === "DEBUG") {
-    logger("enter doctor");
     return await doctor();
   }
   // 处理飞书开放平台的事件回调
