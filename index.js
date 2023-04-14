@@ -156,8 +156,13 @@ async function getOpenAIReply(prompt) {
       return response.data.choices[0].message.content.replace("\n\n", "");
     
   }catch(e){
-     logger(e.response.data)
-     return `接口异常：${e.response.data.error.message}`;
+    if (e.response) {
+      logger(e.response.data)
+      return `接口异常(1)：${e.response.data.error.message}`;
+    } else {
+      logger(e)
+      return `接口异常(2): ${e.message}`;
+    }
   }
 
 }
